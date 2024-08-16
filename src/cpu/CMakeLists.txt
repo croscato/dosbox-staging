@@ -19,5 +19,5 @@ target_link_libraries(libcpu PRIVATE
 )
 
 if (C_DEBUG)
-	target_link_libraries(libcpu PRIVATE libdebug)
+	target_link_libraries(libcpu PRIVATE libdebug libdebug2)
 endif()

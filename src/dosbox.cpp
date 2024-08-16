@@ -110,6 +110,7 @@ void PIC_Init(Section*);
 void TIMER_Init(Section*);
 void BIOS_Init(Section*);
 void DEBUG_Init(Section*);
+void DEBUG2_Init(Section*);
 void CMOS_Init(Section*);
 
 void MSCDEX_Init(Section*);
@@ -865,6 +866,7 @@ void DOSBOX_Init()
 
 #if C_DEBUG
 	secprop = control->AddSection_prop("debug", &DEBUG_Init);
+	secprop = control->AddSection_prop("dbg", &DEBUG2_Init);
 #endif
 
 	// Configure Sound Blaster and ESS

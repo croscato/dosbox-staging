@@ -720,6 +720,22 @@ sdl2_dep = dependency(
     include_type: 'system',
 )
 
+libfmt_dep= dependency(
+    'fmt',
+    version: ['>= 11.0.1'],
+    default_options: default_wrap_options,
+    static: ('fmt' in static_libs_list or prefers_static_libs),
+    include_type: 'system',
+)
+
+imgui_dep= dependency(
+    'imgui',
+    version: ['>= 1.89.9'],
+    default_options: default_wrap_options,
+    static: ('imgui' in static_libs_list or prefers_static_libs),
+    include_type: 'system',
+)
+
 # zlib
 # ~~~~
 zlib_provider = 'none'
@@ -1287,6 +1303,8 @@ third_party_deps = [
     tracy_dep,
     libwhereami_dep,
     libtalchorus_dep,
+    libfmt_dep,
+    imgui_dep,
 ]
 
 if conf_data.get('C_MANYMOUSE') != 0
@@ -1308,7 +1326,10 @@ subdir('src/shell')
 if get_option('enable_debugger') != 'none'
     subdir('src/libs/PDCurses')
     subdir('src/debug')
+    subdir('src/debug2')
     third_party_deps += libpdcurses_dep
+    third_party_deps += libfmt_dep
+    third_party_deps += imgui_dep
 endif
 
 # generate config.h

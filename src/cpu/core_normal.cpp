@@ -148,6 +148,9 @@ static inline uint32_t Fetchd() {
 
 #define EALookupTable (core.ea_table)
 
+extern Bitu debug2_callback;
+extern bool DEBUG2_HeavyIsBreakpoint();
+
 Bits CPU_Core_Normal_Run() noexcept
 {
 	ZoneScoped;
@@ -161,7 +164,10 @@ Bits CPU_Core_Normal_Run() noexcept
 		core.base_val_ds=ds;
 #if C_DEBUG
 #if C_HEAVY_DEBUG
-		if (DEBUG_HeavyIsBreakpoint()) {
+		if (DEBUG2_HeavyIsBreakpoint()) {
+			FillFlags();
+			return static_cast<Bits>(debug2_callback);
+		} else if (DEBUG_HeavyIsBreakpoint()) {
 			FillFlags();
 			return debugCallback;
 		};
